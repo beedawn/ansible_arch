@@ -20,7 +20,6 @@
           - btrfs-progs
           - calc
           - chromium
-          - clion
           - cmake
           - dmenu
           - docker
@@ -52,14 +51,12 @@
           - newsflash
           - ninja
           - nmap
-          - nordvpn-bin
           - npm
           - ntfs-3g
           - openssh
           - otf-opendyslexic-nerd
           - php
           - postgresql
-          - postman-bin
           - pycharm-professional
           - python-pip
           - python-pipx
@@ -91,7 +88,7 @@
     - name: Install 1Password using yay
       become: no
       shell: |
-        yay -S --noconfirm 1password
+        yay -S --noconfirm 1password clion nordvpn-bin postman-bin
       args:
         executable: /bin/bash
 
