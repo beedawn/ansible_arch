@@ -98,6 +98,14 @@
         dest: /home/{{ my_username }}/yay
         update: no
 
+    - name: Ensure yay directory is owned by normal user
+      file:
+        path: "/home/{{ my_username }}/yay"
+        owner: "{{ my_username }}"
+        group: "{{ my_username }}"
+        recurse: yes
+
+
     - name: Build and install yay
       become: no
       shell: |
