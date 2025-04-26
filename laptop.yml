@@ -5,7 +5,7 @@
 
   tasks:
   - name: Install Git
-      apt:
+      pacman:
         name: git
         state: present
         update_cache: yes
