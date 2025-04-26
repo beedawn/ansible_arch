@@ -76,14 +76,37 @@
           - xdg-utils
           - xss-lock
           - xterm
-          - yay
-          - yay-debug
           - zram-generator
           - wl-clipboard    # (added for Wayland clipboard support)
         state: present
         update_cache: yes
 
-    - name: Install 1Password using yay
+
+
+    - name: Install prerequisites for building AUR packages
+      pacman:
+        name:
+          - git
+          - base-devel
+        state: present
+        update_cache: yes
+
+    - name: Clone yay repository
+      git:
+        repo: https://aur.archlinux.org/yay.git
+        dest: /home/{{ ansible_user }}/yay
+        update: no
+
+    - name: Build and install yay
+      become: no
+      shell: |
+        cd /home/{{ ansible_user }}/yay
+        makepkg -si --noconfirm
+      args:
+        executable: /bin/bash
+
+
+    - name: Install items using yay
       become: no
       shell: |
         yay -S --noconfirm 1password clion nordvpn-bin postman-bin pycharm-professional
