@@ -1,0 +1,11 @@
+---
+- name: run ansible playbook locally
+  hosts: localhost
+  gather_facts: yes
+
+  tasks:
+  - name: Install Git
+      apt:
+        name: git
+        state: present
+        update_cache: yes
