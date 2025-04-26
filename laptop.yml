@@ -12,7 +12,6 @@
     - name: Install required packages
       pacman:
         name:
-          - 1password
           - alsa-lib
           - arduino
           - arm-none-eabi-gdb
@@ -88,6 +87,14 @@
           - wl-clipboard    # (added for Wayland clipboard support)
         state: present
         update_cache: yes
+
+    - name: Install 1Password using yay
+      become: no
+      shell: |
+        yay -S --noconfirm 1password
+      args:
+        executable: /bin/bash
+
 
     - name: Clone dotfiles repository
       git:
