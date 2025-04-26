@@ -57,7 +57,6 @@
           - otf-opendyslexic-nerd
           - php
           - postgresql
-          - pycharm-professional
           - python-pip
           - python-pipx
           - ranger
@@ -88,7 +87,7 @@
     - name: Install 1Password using yay
       become: no
       shell: |
-        yay -S --noconfirm 1password clion nordvpn-bin postman-bin
+        yay -S --noconfirm 1password clion nordvpn-bin postman-bin pycharm-professional
       args:
         executable: /bin/bash
 
