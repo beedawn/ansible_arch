@@ -4,7 +4,7 @@
   become: yes
 
   vars:
-    dotfiles_repo: "https://github.com/beedawn/arch_ansible.git"   # <-- Replace with your real repo!
+    dotfiles_repo: "git@github.com:beedawn/arch_ansible.git"   # <-- Replace with your real repo!
     my_username: bee
     dotfiles_dest: "/home/{{ my_username }}/dotfiles"
 
