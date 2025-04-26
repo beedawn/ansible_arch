@@ -1,11 +1,131 @@
 ---
-- name: run ansible playbook locally
+- name: Setup Arch Laptop with Packages and Dotfiles
   hosts: localhost
-  gather_facts: yes
+  become: yes
+
+  vars:
+    dotfiles_repo: "https://github.com/beedawn/arch_ansible.git"   # <-- Replace with your real repo!
+    dotfiles_dest: "/home/{{ ansible_user }}/dotfiles"
 
   tasks:
-  - name: Install Git
+
+    - name: Install required packages
       pacman:
-        name: git
+        name:
+          - 1password
+          - alsa-lib
+          - arduino
+          - arm-none-eabi-gdb
+          - base
+          - base-devel
+          - btrfs-progs
+          - calc
+          - chromium
+          - clion
+          - cmake
+          - dmenu
+          - docker
+          - docker-compose
+          - efibootmgr
+          - elixir
+          - exfat-utils
+          - fuse2
+          - gdb
+          - git
+          - github-cli
+          - gparted
+          - grim
+          - htop
+          - intel-ucode
+          - iwd
+          - jdk17-openjdk
+          - libdecor
+          - lightdm
+          - lightdm-gtk-greeter
+          - linux
+          - linux-firmware
+          - linux-headers
+          - lshw
+          - minicom
+          - nano
+          - neovim
+          - networkmanager
+          - newsflash
+          - ninja
+          - nmap
+          - nordvpn-bin
+          - npm
+          - ntfs-3g
+          - openssh
+          - otf-opendyslexic-nerd
+          - php
+          - postgresql
+          - postman-bin
+          - pycharm-professional
+          - python-pip
+          - python-pipx
+          - ranger
+          - smartmontools
+          - sof-firmware
+          - subversion
+          - sway
+          - swaylock
+          - tesseract-data-eng
+          - unzip
+          - usbutils
+          - vim
+          - virtualbox
+          - virtualbox-guest-iso
+          - virtualbox-host-modules-arch
+          - wget
+          - xautolock
+          - xdg-utils
+          - xss-lock
+          - xterm
+          - yay
+          - yay-debug
+          - zram-generator
+          - wl-clipboard    # (added for Wayland clipboard support)
         state: present
+        update_cache: yes
+
+    - name: Clone dotfiles repository
+      git:
+        repo: "{{ dotfiles_repo }}"
+        dest: "{{ dotfiles_dest }}"
+        version: main
+        accept_hostkey: yes
+
+    - name: Copy dotfiles to home directory
+      copy:
+        src: "{{ dotfiles_dest }}/.config/"
+        dest: "/home/{{ ansible_user }}/.config/"
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: '0755'
+        remote_src: yes
+
+    - name: Copy home dotfiles (.bashrc, etc)
+      copy:
+        src: "{{ dotfiles_dest }}/"
+        dest: "/home/{{ ansible_user }}/"
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: '0644'
+        remote_src: yes
+        with_fileglob:
+          - "{{ dotfiles_dest }}/.*"
+        when: item is match('^\.([^/]+)$')
+
+    - name: Enable NetworkManager
+      systemd:
+        name: NetworkManager
+        enabled: yes
+        state: started
+
+    - name: Enable Docker
+      systemd:
+        name: docker
+        enabled: yes
+        state: started
         update_cache: yes
