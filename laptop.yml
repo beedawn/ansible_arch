@@ -5,7 +5,7 @@
 
   vars:
     dotfiles_repo: "https://github.com/beedawn/arch_ansible.git"   # <-- Replace with your real repo!
-    dotfiles_dest: "/home/{{ ansible_user }}/dotfiles"
+    dotfiles_dest: "/home/{{ ansible_env.USER }}/dotfiles"
 
   tasks:
 
@@ -94,13 +94,13 @@
     - name: Clone yay repository
       git:
         repo: https://aur.archlinux.org/yay.git
-        dest: /home/{{ ansible_user }}/yay
+        dest: /home/{{ ansible_env.USER }}/yay
         update: no
 
     - name: Build and install yay
       become: no
       shell: |
-        cd /home/{{ ansible_user }}/yay
+        cd /home/{{ ansible_env.USER }}/yay
         makepkg -si --noconfirm
       args:
         executable: /bin/bash
@@ -125,8 +125,8 @@
       copy:
         src: "{{ dotfiles_dest }}/.config/"
         dest: "/home/{{ ansible_user }}/.config/"
-        owner: "{{ ansible_user }}"
-        group: "{{ ansible_user }}"
+        owner: "{{ ansible_env.USER }}"
+        group: "{{ ansible_env.USER }}"
         mode: '0755'
         remote_src: yes
 
@@ -134,8 +134,8 @@
       copy:
         src: "{{ dotfiles_dest }}/"
         dest: "/home/{{ ansible_user }}/"
-        owner: "{{ ansible_user }}"
-        group: "{{ ansible_user }}"
+        owner: "{{ ansible_env.USER }}"
+        group: "{{ ansible_env.USER }}"
         mode: '0644'
         remote_src: yes
         with_fileglob:
