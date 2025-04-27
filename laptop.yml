@@ -165,26 +165,15 @@
         accept_hostkey: yes
       become: no
 
-    - name: Copy dotfiles to home directory
-      copy:
-        src: "{{ dotfiles_dest }}/dotfiles/.config/"
-        dest: "/home/{{ my_username }}/.config/"
-        owner: "{{ my_username }}"
-        group: "{{ my_username }}"
-        mode: '0755'
-        remote_src: yes
 
-    - name: Copy home dotfiles (.bashrc, etc)
-      copy:
+    - name: Copy all dotfiles to home directory
+      synchronize:
         src: "{{ dotfiles_dest }}/dotfiles/"
         dest: "/home/{{ my_username }}/"
-        owner: "{{ my_username }}"
-        group: "{{ my_username }}"
-        mode: '0644'
-        remote_src: yes
-        with_fileglob:
-          - "{{ dotfiles_dest }}/dotfiles/.*"
-        when: item is match('^\.([^/]+)$')
+        recursive: yes
+        archive: yes
+        delete: no
+      delegate_to: localhost
 
     - name: Enable NetworkManager
       systemd:
