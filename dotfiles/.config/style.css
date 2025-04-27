@@ -1,0 +1,15 @@
+* {
+    font-family: "DejaVu Sans Mono";
+    font-size: 12px;
+    color: #ffffff;
+    background: #181818;
+}
+
+#battery {
+    color: #75DE1E;
+}
+
+#clock {
+    color: #00ccff;
+}
+
