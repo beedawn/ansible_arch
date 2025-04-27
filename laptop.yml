@@ -8,6 +8,15 @@
     my_username: bee
     dotfiles_dest: "/home/{{ my_username }}/dotfiles"
 
+
+
+  vars_prompt:
+    - name: "github_username"
+      prompt: "Enter github email address"
+    - name: "github_name"
+      prompt: "Enter github name"
+
+
   tasks:
 
     - name: Install required packages
