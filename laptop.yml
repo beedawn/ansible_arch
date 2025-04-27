@@ -46,6 +46,7 @@
           - htop
           - intel-ucode
           - iwd
+          - i3status
           - jdk17-openjdk
           - libdecor
           - lightdm
