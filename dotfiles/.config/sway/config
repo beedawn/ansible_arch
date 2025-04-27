@@ -80,7 +80,7 @@ floating_modifier $mod
 tiling_drag titlebar
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal -bg "#181818" -cr yellow -fg "#75DE1E" -fa 'Liberation Mono' -fs 12
+bindsym $mod+Return exec foot
 
 # kill focused window
 bindsym $mod+Shift+q kill
