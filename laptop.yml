@@ -163,6 +163,7 @@
         dest: "{{ dotfiles_dest }}"
         version: main
         accept_hostkey: yes
+      become: no
 
     - name: Copy dotfiles to home directory
       copy:
