@@ -186,4 +186,4 @@
         name: docker
         enabled: yes
         state: started
-        update_cache: yes
+
