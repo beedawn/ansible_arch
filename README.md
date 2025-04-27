@@ -19,3 +19,9 @@ then ssh -T git@github.com
 
 
 should give happy message
+
+
+
+to run playbook use:
+
+ansible-playbook laptop.yml --ask-become-pass
