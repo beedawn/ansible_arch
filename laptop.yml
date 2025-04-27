@@ -6,7 +6,7 @@
   vars:
     dotfiles_repo: "git@github.com:beedawn/ansible_arch.git"   # <-- Replace with your real repo!
     my_username: bee
-    dotfiles_dest: "/home/{{ my_username }}/dotfiles"
+    dotfiles_dest: "/home/{{ my_username }}/ansible_arch_repo"
 
 
 
@@ -167,7 +167,7 @@
 
     - name: Copy dotfiles to home directory
       copy:
-        src: "{{ dotfiles_dest }}/.config/"
+        src: "{{ dotfiles_dest }}/dotfiles/.config/"
         dest: "/home/{{ my_username }}/.config/"
         owner: "{{ my_username }}"
         group: "{{ my_username }}"
@@ -176,14 +176,14 @@
 
     - name: Copy home dotfiles (.bashrc, etc)
       copy:
-        src: "{{ dotfiles_dest }}/"
+        src: "{{ dotfiles_dest }}/dotfiles/"
         dest: "/home/{{ my_username }}/"
         owner: "{{ my_username }}"
         group: "{{ my_username }}"
         mode: '0644'
         remote_src: yes
         with_fileglob:
-          - "{{ dotfiles_dest }}/.*"
+          - "{{ dotfiles_dest }}/dotfiles/.*"
         when: item is match('^\.([^/]+)$')
 
     - name: Enable NetworkManager
