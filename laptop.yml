@@ -134,11 +134,11 @@
 
     - name: Generate SSH key if not exists
       user:
-      name: "{{ my_username }}"   # Use your correct username var (not ansible_user if you're running as root!)
-      generate_ssh_key: yes
-      ssh_key_type: ed25519        # Use ed25519 (more modern and better than rsa now)
-      ssh_key_file: ".ssh/github"  # inside ~/.ssh/
-      force: no
+        name: "{{ my_username }}"   # Use your correct username var (not ansible_user if you're running as root!)
+        generate_ssh_key: yes
+        ssh_key_type: ed25519        # Use ed25519 (more modern and better than rsa now)
+        ssh_key_file: ".ssh/github"  # inside ~/.ssh/
+        force: no
        
     - name: Clone dotfiles repository
       git:
