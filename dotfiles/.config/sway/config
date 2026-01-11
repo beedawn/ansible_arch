@@ -46,24 +46,11 @@ bindsym Mod4+b exec "chromium --enable-features=WebContentsForceDarkchromium --e
 # keybinding to lock screen
 bindsym Control+Mod4+l exec "swaylock -c 000000"
 
-
-#keybinding for brightness
-bindsym Mod4+plus exec "echo $(($(cat /sys/class/backlight/intel_backlight/brightness)+2000)) > /sys/class/backlight/intel_backlight/brightness"
-
-bindsym Mod4+minus exec "echo $(($(cat /sys/class/backlight/intel_backlight/brightness)-2000)) > /sys/class/backlight/intel_backlight/brightness"
-
-#keybinding for brightness
-bindsym Mod4+Shift+plus exec "echo $(($(cat /sys/class/backlight/intel_backlight/brightness)+200)) > /sys/class/backlight/intel_backlight/brightness"
-
-bindsym Mod4+Shift+minus exec "echo $(($(cat /sys/class/backlight/intel_backlight/brightness)-200)) > /sys/class/backlight/intel_backlight/brightness"
-
-
-
-
 #auto lock the screen
 exec "xautolock -detectsleep -time 3 -locker 'swaylock -c 000000'"
 
-
+bindsym Mod4+plus exec "brightnessctl set +10%"
+bindsym Mod4+Shift+minus exec "brightnessctl set 10%-"
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status

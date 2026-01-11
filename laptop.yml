@@ -22,6 +22,9 @@
     - name: Install required packages
       pacman:
         name:
+          - brightnessctl
+          - rsync
+          - go
           - alsa-lib
           - arduino
           - arm-none-eabi-gdb
@@ -116,22 +119,26 @@
         group: "{{ my_username }}"
         recurse: yes
 
+    - name: Check if yay package already built
+      find:
+        paths: /home/{{ my_username }}/yay
+        patterns: "yay-*.pkg.tar.zst"
+        file_type: file
+      register: yay_pkg
 
-    - name: Build and install yay
-      become: no
-      shell: |
-        cd /home/{{ my_username }}/yay
-        makepkg -si --noconfirm
+    - name: Build yay package
+      become: false
+      command: makepkg -s --noconfirm
       args:
-        executable: /bin/bash
+        chdir: /home/{{ my_username }}/yay
+      when: yay_pkg.matched == 0
+
+    - name: Install yay package
+      become: true
+      command: pacman -U {{ yay_pkg.files[0].path }} --noconfirm
+      when: yay_pkg.matched > 0
 
 
-    - name: Install items using yay
-      become: no
-      shell: |
-        yay -S --noconfirm 1password clion nordvpn-bin postman-bin pycharm-professional
-      args:
-        executable: /bin/bash
 
     - name: Set global Git email
       shell: git config --global user.email "{{ github_email }}"

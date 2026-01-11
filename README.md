@@ -21,6 +21,16 @@ then ssh -T git@github.com
 should give happy message
 
 
+install this too?
+
+
+
+ansible-galaxy collection install kewlfft.aur
+
+
+
+
+
 
 to run playbook use:
 
