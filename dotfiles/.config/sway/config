@@ -219,3 +219,9 @@ bindsym $mod+r mode "resize"
 #}
 
 exec_always --no-startup-id bash -c "pkill waybar; sleep 0.5 && waybar"
+
+
+
+#pycharm
+
+bindsym Mod4+Shift+p exec "/opt/pycharm-professional/bin/pycharm"

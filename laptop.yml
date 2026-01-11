@@ -22,6 +22,8 @@
     - name: Install required packages
       pacman:
         name:
+          -less
+          - openssh
           - brightnessctl
           - rsync
           - go
