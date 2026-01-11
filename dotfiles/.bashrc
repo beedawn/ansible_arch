@@ -34,3 +34,8 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 export JAVA_HOME=/usr/lib/jvm/java-17-openjdkllib
 export PATH=$JAVA_HOME/bin:$PATH
+
+
+
+eval $(ssh-agent -s) &> /dev/null
+ssh-add ~/.ssh/github &> /dev/null
